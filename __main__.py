@@ -1,4 +1,5 @@
-import spawnAllPing as spall
+
+import gausswrap as spall
 
 def main():
 
@@ -12,13 +13,23 @@ def main():
     try: 
         x=int(input())
         if (1<=x<=4): 
-            print(x)
-            spall.run();
+            selector(x)
         else: 
             raise Exception('out of range')
     except Exception as e: 
         print (e)
     
+def selector(x): 
+    if(x==1):
+        spall.run_local();
+    elif(x==2): 
+        spall.run_container();
+    elif(x==3): 
+        spall.run_multilocal();
+    elif(x==4):
+        spall.run_multicontainer();
+    else:
+        print("shit")
 
 if __name__ == "__main__":
     main()

@@ -1,12 +1,20 @@
-# Defining our function as seidel which takes 3 arguments 
-# as A matrix, Solution and B matrix 
-import sys 
+from flask import Flask
 import time 
+import sys 
 
+app = Flask(__name__)
 # define constants
 x = [0,0,0,0,0]    
 a = [[4,1,2,1,1],[3,5,1,1,1],[1,1,3,1,1],[1,1,1,5,1], [1,1,1,1,9]] 
 b = [4,7,3,9,2] 
+
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
+@app.route("/")
+def home():
+    return "Hello, World!"
 
 def seidel(a, x ,b): 
     n = len(a)                    
@@ -18,11 +26,15 @@ def seidel(a, x ,b):
         x[j] = d / a[j][j]         
     return x     
 
-def run(raw): 
+@app.route("/run/<passage>/<call>")
+def runner(passage, call): 
+
     # running loop
-    pre = time.time()   
+    xcall = float(call)
+    pre = time.time()
+    calllength = pre-xcall;
     # print(raw)    
-    raw = raw.split(',')            
+    raw = passage.split(',')            
     x = [ float(element) for element in raw]
     # print(x) 
     
@@ -32,7 +44,10 @@ def run(raw):
         #print each time the updated solution 
     output = [ str(element) for element in x]  
     length = time.time() - pre
-    with open('/home/eugene/devspace/container/logs', 'a+') as the_file:
-        the_file.write('TIME:' + str(length) + ' RESULT:' + str(output)+ '\n')
+    with open('/home/eugene/devspace/container/logs-naive.csv', 'a+') as the_file:
+        the_file.write(str(length) + ','+ str(calllength) + ',' + ",".join(map(str, x)) + '\n')
     # print(length)      
     return(','.join(output))
+    
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
