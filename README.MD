@@ -15,6 +15,7 @@ To run on native machine, go into this directory and:
 python . 
 ```
 then when menu shows up select accordingly the environment in which you want to run the test.
+If you want to run any of the situation directly, run `python gausse` for native run vs new container and or `python main.py` in flask application or 5 nested containers
 
 ## Use and License
 This project is licensed under MIT license. You are free to share and use findings in this repository.
