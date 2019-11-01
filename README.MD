@@ -1,4 +1,5 @@
 # Container Infrastructure
+[![DOI](https://zenodo.org/badge/216539298.svg)](https://zenodo.org/badge/latestdoi/216539298)
 
 ## logs
 - [raw logs](./log/)
